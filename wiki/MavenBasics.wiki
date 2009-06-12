@@ -91,25 +91,17 @@ MyProject
 }}}
 The pom file for MyProjectModule1 contains a reference to the parent and looks like this:
 {{{
-
-  
-    MyProject
-    fs.work
-    1.0-SNAPSHOT
-  
-  4.0.0
-  fs.work
-  MyProjectModule1
-  MyProjectModule1
-  1.0-SNAPSHOT
-  http://maven.apache.org
-  
-    
-      junit
-      junit
-      3.8.1
-      test
-    
+...
+  <parent>
+    <groupId>fs.work</groupId>
+    <artifactId>MyProject</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent> 
+  <modules>
+    <module>MyProjectModule1</module>
+    <module>MyProjectModule2</module> 
+  </modules>
+...
 }}}
 
 = Deploying a jar to the repository =
