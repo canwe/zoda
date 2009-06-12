@@ -2,7 +2,9 @@
 = Introduction =
 In order to create a new maven project called MyProject run the following command:
 
-{{{mvn archetype:create -DgroupId=fs.work -DartifactId=MyProject}}}
+{{{
+mvn archetype:create -DgroupId=fs.work -DartifactId=MyProject
+}}}
 
 This will create a new directory called *MyProject* with a *pom.xml* and the following tree structure:
 {{{
