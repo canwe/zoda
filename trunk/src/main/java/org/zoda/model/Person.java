@@ -1,7 +1,7 @@
 package org.zoda.model;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * User: Melih Birim -- melih.birim@alcatel-lucent.com
@@ -11,21 +11,10 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "PERSON")
-public class Person implements Serializable,AbstractModel{
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)    
-    private Long personId;
+public class Person extends Persistable {
 
     private String name;
     private String surName;
-
-    public Long getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Long personId) {
-        this.personId = personId;
-    }
 
     public String getName() {
         return name;
