@@ -16,7 +16,7 @@ import java.util.List;
 public abstract class AbstractDao implements GenericDao {
     protected static final Log log = LogFactory.getLog(AbstractDao.class);
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("zoda");
+    public static EntityManagerFactory emf = Persistence.createEntityManagerFactory("zoda");
 
     public static final String SELECT_ALL_QUERY;
 
@@ -33,6 +33,11 @@ public abstract class AbstractDao implements GenericDao {
     @PersistenceContext
     private static EntityManager em = emf.createEntityManager();
 
+    public static EntityTransaction beginTransaction() {
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        return tx;
+    }
 
     public <T extends Persistable> T persist(T obj) {
 
@@ -40,8 +45,7 @@ public abstract class AbstractDao implements GenericDao {
 
         EntityTransaction tx = null;
         try {
-            tx = em.getTransaction();
-            tx.begin();
+            tx = beginTransaction();            
             if (obj.getId() != Persistable.UNSAVED_ID_VALUE) {
                 log.info("Updating... :" + obj);
                 T merged = em.merge(obj);
@@ -67,8 +71,7 @@ public abstract class AbstractDao implements GenericDao {
     public void remove(Persistable obj) {
         EntityTransaction tx = null;
         try {
-            tx = em.getTransaction();
-            tx.begin();
+            tx = beginTransaction();            
             em.remove(obj);
         } catch (RuntimeException e) {
             tx.rollback();
@@ -91,22 +94,22 @@ public abstract class AbstractDao implements GenericDao {
     }
 
     public <T extends Persistable> List<T> list(Class<T> clazz) {
-        return list(clazz, 100) ;
+        return list(clazz, 100);
     }
 
     public <T extends Persistable> List<T> list(Class<T> clazz, int maxResults) {
-        String query = AbstractDao.SELECT_ALL_QUERY.replaceFirst(":CLASS:", clazz.getSimpleName()) ;
-		List<T> persistables = em.createQuery(query).setMaxResults(maxResults).getResultList() ;
-		return persistables ;
+        String query = AbstractDao.SELECT_ALL_QUERY.replaceFirst(":CLASS:", clazz.getSimpleName());
+        List<T> persistables = em.createQuery(query).setMaxResults(maxResults).getResultList();
+        return persistables;
     }
 
     public <T extends Persistable> List<T> listByProperty(Class<T> clazz, String propertyName, Object propertyValue) {
-        return listByProperty(clazz, propertyName, propertyValue, 100) ;
+        return listByProperty(clazz, propertyName, propertyValue, 100);
     }
 
     public <T extends Persistable> List<T> listByProperty(Class<T> clazz, String propertyName, Object propertyValue, int maxResults) {
-        String query = AbstractDao.SELECT_BY_PROPERTY_QUERY.replaceFirst(":CLASS:", clazz.getSimpleName()).replaceFirst(":PROPNAME:", propertyName) ;
-		List<T> persistables = em.createQuery(query).setParameter(1, propertyValue).setMaxResults(maxResults).getResultList() ;
-		return persistables ;
+        String query = AbstractDao.SELECT_BY_PROPERTY_QUERY.replaceFirst(":CLASS:", clazz.getSimpleName()).replaceFirst(":PROPNAME:", propertyName);
+        List<T> persistables = em.createQuery(query).setParameter(1, propertyValue).setMaxResults(maxResults).getResultList();
+        return persistables;
     }
 }
