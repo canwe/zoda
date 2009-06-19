@@ -1,22 +1,18 @@
 package org.zoda.dao.impl;
 
 import org.zoda.dao.AbstractDao;
-import org.zoda.model.Person;
+import org.zoda.model.Persistable;
 
 /**
  * User: Melih Birim -- melih.birim@alcatel-lucent.com
- * Date: Jun 13, 2009
- * Time: 2:17:30 AM
+ * Date: Jun 19, 2009
+ * Time: 5:12:06 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PersonDao extends AbstractDao {
+public class TestDao extends AbstractDao {
 
-    public <T extends Person> T persist(T obj) {
+    public Persistable persit(Persistable obj) {
         return super.persist(obj);
-    }
-
-    public void remove(Person person){
-        super.remove(person);
     }
     
 }
