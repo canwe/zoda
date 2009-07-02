@@ -10,27 +10,14 @@ import javax.persistence.Temporal;
 
 @Entity
 public class DefaultHI extends Persistable {
-    
-    private static long serialVersionUID = 1L;
 
-    /**
-     * @return the serialVersionUID
-     */
+    private static final long serialVersionUID = 1L;
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
-    
-    @OneToOne(mappedBy="defaultHI")
+    @OneToOne(mappedBy = "defaultHI")
     public Person person;
 
     public Person getOwner() {
@@ -40,7 +27,6 @@ public class DefaultHI extends Persistable {
     public void setOwner(Person person) {
         this.person = person;
     }
-
     private String bloodGRP;
     private String workAccident;
     private String attention;
@@ -54,50 +40,10 @@ public class DefaultHI extends Persistable {
     private String hepatitisA;
     private String hepatitis;
     private Long bloodGive;
-    private String workIllness ;
+    private String workIllness;
     private String otherVaccins;
-
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date TERMD;
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (getID() != null ? getID().hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DefaultHI)) {
-            return false;
-        }
-        DefaultHI other = (DefaultHI) object;
-        if ((this.getID() == null && other.getID() != null) || (this.getID() != null && !this.ID.equals(other.ID))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "healthsystem.DefaultHI[ID=" + getID() + "]";
-    }
-
-    /**
-     * @return the ID
-     */
-    public Long getID() {
-        return ID;
-    }
-
-    /**
-     * @param ID the ID to set
-     */
-    public void setID(Long ID) {
-        this.ID = ID;
-    }
 
     /**
      * @return the bloodGRP
@@ -309,16 +255,10 @@ public class DefaultHI extends Persistable {
         this.otherVaccins = otherVaccins;
     }
 
-    /**
-     * @return the TERMD
-     */
     public Date getTERMD() {
         return TERMD;
     }
 
-    /**
-     * @param TERMD the TERMD to set
-     */
     public void setTERMD(Date TERMD) {
         this.TERMD = TERMD;
     }
