@@ -3,7 +3,6 @@ package org.zoda.util;
 import junit.framework.TestCase;
 
 import org.zoda.model.Person;
-import org.zoda.model.Persistable;
 import org.zoda.dao.impl.PersonDao;
 
 import java.util.List;
@@ -39,15 +38,15 @@ public class BasicHibernateTest extends TestCase {
 
         Person pojo = new Person();
         pojo.setName("PersonDao");
-        pojo.setSurName("PersonDao");
+        pojo.setSurname("PersonDao");
         Person pojo2 = new Person();
         pojo2.setName("PersonDao2");
-        pojo2.setSurName("PersonDao2");
+        pojo2.setSurname("PersonDao2");
 
         Person tempPerson = pd.persist(pojo);
         pd.persist(pojo2);
         tempPerson.setName("PersonDao3");
-        tempPerson.setSurName("PersonDao3");
+        tempPerson.setSurname("PersonDao3");
         pd.persist(tempPerson);
         //pd.remove(tempPerson);
         Person p2 = pd.find(Person.class,2L);
