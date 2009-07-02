@@ -13,7 +13,7 @@ public class HealthInformationDao extends AbstractDao {
 
     PersonDao pd = new PersonDao();
 
-    public <T extends HealthInformation> T persit(T hi){
+    public <T extends HealthInformation> T persist(T hi){
         //hi.setPerson(pd.persist(hi.getPerson()));
         return super.persist(hi);
     }
