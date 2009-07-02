@@ -1,6 +1,5 @@
 package org.zoda.model;
 
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,10 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
-/**
- *
- * @author Furkan KAMACI
- */
+
 @Entity
 public class DoctorRound extends Persistable {
     
@@ -31,9 +27,7 @@ public class DoctorRound extends Persistable {
     }
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+
     private Long protocolNum;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateDRound;
@@ -64,30 +58,6 @@ public class DoctorRound extends Persistable {
     private Date dummy;
     private String scrutinyDR;
 
-    public Long getID() {
-        return ID;
-    }
-
-    public void setID(Long ID) {
-        this.ID = ID;
-    }
-
-    public Date getMDT() {
-        return MDT;
-    }
-
-    public void setMDT(Date MDT) {
-        this.MDT = MDT;
-    }
-
-    public Date getSAT() {
-        return SAT;
-    }
-
-    public void setSAT(Date SAT) {
-        this.SAT = SAT;
-    }
-
     public String getAttention() {
         return attention;
     }
@@ -105,14 +75,6 @@ public class DoctorRound extends Persistable {
     }
 
 
-    public Date getDateDRound() {
-        return dateDRound;
-    }
-
-    public void setDateDRound(Date dateDRound) {
-        this.dateDRound = dateDRound;
-    }
-
     public String getDiagnosis() {
         return diagnosis;
     }
@@ -121,13 +83,6 @@ public class DoctorRound extends Persistable {
         this.diagnosis = diagnosis;
     }
 
-    public Date getDummy() {
-        return dummy;
-    }
-
-    public void setDummy(Date dummy) {
-        this.dummy = dummy;
-    }
 
     public String getExamination() {
         return examination;
@@ -161,14 +116,7 @@ public class DoctorRound extends Persistable {
         this.scrutinyDR = scrutinyDR;
     }
 
-    public Date getPermissionDate() {
-        return permissionDate;
-    }
-
-    public void setPermissionDate(Date permissionDate) {
-        this.permissionDate = permissionDate;
-    }
-
+ 
     public boolean isPregnant() {
         return pregnant;
     }
@@ -183,6 +131,46 @@ public class DoctorRound extends Persistable {
 
     public void setProtocolNum(Long protocolNum) {
         this.protocolNum = protocolNum;
+    }
+
+    public Date getMDT() {
+        return MDT;
+    }
+
+    public void setMDT(Date MDT) {
+        this.MDT = MDT;
+    }
+
+    public Date getSAT() {
+        return SAT;
+    }
+
+    public void setSAT(Date SAT) {
+        this.SAT = SAT;
+    }
+
+    public Date getDateDRound() {
+        return dateDRound;
+    }
+
+    public void setDateDRound(Date dateDRound) {
+        this.dateDRound = dateDRound;
+    }
+
+    public Date getDummy() {
+        return dummy;
+    }
+
+    public void setDummy(Date dummy) {
+        this.dummy = dummy;
+    }
+
+    public Date getPermissionDate() {
+        return permissionDate;
+    }
+
+    public void setPermissionDate(Date permissionDate) {
+        this.permissionDate = permissionDate;
     }
 
     public Date getReportBegin() {
@@ -239,25 +227,5 @@ public class DoctorRound extends Persistable {
 
     public void setWorkplaceDr(String workplaceDr) {
         this.workplaceDr = workplaceDr;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (ID != null ? ID.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DoctorRound)) {
-            return false;
-        }
-        DoctorRound other = (DoctorRound) object;
-        if ((this.ID == null && other.ID != null) || (this.ID != null && !this.ID.equals(other.ID))) {
-            return false;
-        }
-        return true;
     }
 }

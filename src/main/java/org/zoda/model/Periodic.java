@@ -3,17 +3,11 @@ package org.zoda.model;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
-/**
- *
- * @author Furkan KAMACI
- */
+
 
 @Entity
 public class Periodic extends Persistable {
@@ -32,9 +26,7 @@ public class Periodic extends Persistable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date datePeriodic;
     private Long height;
@@ -379,33 +371,4 @@ public class Periodic extends Persistable {
     public void setXray(String xray) {
         this.xray = xray;
     }
-
-    public Long getID() {
-        return ID;
-    }
-
-    public void setID(Long ID) {
-        this.ID = ID;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (ID != null ? ID.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the ID fields are not set
-        if (!(object instanceof Periodic)) {
-            return false;
-        }
-        Periodic others = (Periodic) object;
-        if ((this.ID == null && others.ID != null) || (this.ID != null && !this.ID.equals(others.ID))) {
-            return false;
-        }
-        return true;
-    }
-
 }

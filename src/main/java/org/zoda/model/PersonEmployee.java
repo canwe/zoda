@@ -3,20 +3,17 @@ package org.zoda.model;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 @Entity
-@Table(name="PersonEmployee")
+@Table(name = "PersonEmployee")
 public class PersonEmployee extends Persistable {
 
-    @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinColumn(name="CompanyID")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "CompanyID")
     Company company;
 
     public Company getCompany() {
@@ -26,9 +23,8 @@ public class PersonEmployee extends Persistable {
     public void setCompany(Company company) {
         this.company = company;
     }
-
-    @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinColumn(name="PersonID")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "PersonID")
     Person person;
 
     public Person getPerson() {
@@ -38,89 +34,34 @@ public class PersonEmployee extends Persistable {
     public void setPerson(Person person) {
         this.person = person;
     }
-
     /**
      * @return the serialVersionUID
      */
-    private static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
-
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
-
     private Long telsic;
     private boolean isActive;
     private String departmentCode;
     private String secondSCL;
     private String sigsic;
     private String workState;
-
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date entryDate;
-
     private boolean periodicScrutiny;
-
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date IGMdate;
-
     private String works;
     private String job;
     private String jobRisk;
     private String personelProtector;
     private String exCompany;
     private String companySCL;
-    
-    
-    public PersonEmployee() {}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (getID() != null ? getID().hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PersonEmployee)) {
-            return false;
-        }
-        PersonEmployee other = (PersonEmployee) object;
-        if ((this.getID() == null && other.getID() != null) || (this.getID() != null && !this.ID.equals(other.ID))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "newpackage.PersonEmployee[ID=" + getID() + "]";
-    }
-
-    /**
-     * @return the ID
-     */
-    public Long getID() {
-        return ID;
-    }
-
-    /**
-     * @param ID the ID to set
-     */
-    public void setID(Long ID) {
-        this.ID = ID;
+    public PersonEmployee() {
     }
 
     public Long getTelsic() {
@@ -130,6 +71,7 @@ public class PersonEmployee extends Persistable {
     public void setTelsic(Long telsic) {
         this.telsic = telsic;
     }
+
     /**
      * @return the isActive
      */
@@ -172,14 +114,6 @@ public class PersonEmployee extends Persistable {
         this.secondSCL = secondSCL;
     }
 
-    public boolean isPeriodicScrutiny() {
-        return periodicScrutiny;
-    }
-
-    public void setPeriodicScrutiny(boolean periodicScrutiny) {
-        this.periodicScrutiny = periodicScrutiny;
-    }
-
     /**
      * @return the sigsic
      */
@@ -208,34 +142,31 @@ public class PersonEmployee extends Persistable {
         this.workState = workState;
     }
 
-    /**
-     * @return the entryDate
-     */
+    public Date getIGMdate() {
+        return IGMdate;
+    }
+
+    public void setIGMdate(Date IGMdate) {
+        this.IGMdate = IGMdate;
+    }
+
     public Date getEntryDate() {
         return entryDate;
     }
 
-    /**
-     * @param entryDate the entryDate to set
-     */
     public void setEntryDate(Date entryDate) {
         this.entryDate = entryDate;
     }
 
 
-    /**
-     * @return the IGMdate
-     */
-    public Date getIGMdate() {
-        return IGMdate;
+    public boolean isPeriodicScrutiny() {
+        return periodicScrutiny;
     }
 
-    /**
-     * @param IGMdate the IGMdate to set
-     */
-    public void setIGMdate(Date IGMdate) {
-        this.IGMdate = IGMdate;
+    public void setPeriodicScrutiny(boolean periodicScrutiny) {
+        this.periodicScrutiny = periodicScrutiny;
     }
+
 
     /**
      * @return the works
@@ -320,5 +251,4 @@ public class PersonEmployee extends Persistable {
     public void setCompanySCL(String companySCL) {
         this.companySCL = companySCL;
     }
-
 }
