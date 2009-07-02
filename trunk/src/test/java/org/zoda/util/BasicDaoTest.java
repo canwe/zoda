@@ -23,10 +23,10 @@ public class BasicDaoTest extends TestCase {
         HealthInformation hi = new HealthInformation();
         Person p = new Person();
         p.setName("test");
-        p.setSurName("asd");
+        p.setSurname("sd");
         hi.setPerson(p);
 
-        hiDao.persit(hi);
+        hiDao.persist(hi);
 
         List<Person> list = pd.list(Person.class);
         for (Person person : list) {
