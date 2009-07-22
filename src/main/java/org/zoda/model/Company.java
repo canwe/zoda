@@ -1,6 +1,9 @@
 package org.zoda.model;
 
+//~--- JDK imports ------------------------------------------------------------
+
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -8,12 +11,14 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Company extends Persistable {
-
     private static final long serialVersionUID = 1L;
-
-    @OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinColumn(name="CompanyID")
-    List<PersonEmployee> employees;
+    private String            companyAddress;
+    private String            companyName;
+    private String            companySicil;
+    private String            companyTel;
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "CompanyID")
+    List<PersonEmployee>      employees;
 
     public List<PersonEmployee> getEmployees() {
         return employees;
@@ -26,11 +31,6 @@ public class Company extends Persistable {
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
-
-    private String companyName;
-    private String companyAddress;
-    private String companyTel;
-    private String companySicil;
 
     public String getCompanyName() {
         return companyName;
@@ -82,3 +82,6 @@ public class Company extends Persistable {
         this.companySicil = companySicil;
     }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

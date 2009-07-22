@@ -1,22 +1,59 @@
 package org.zoda.model;
 
+//~--- JDK imports ------------------------------------------------------------
+
 import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
-
 @Entity
 public class DoctorRound extends Persistable {
-    
-    @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinColumn(name="PersonID")
-    Person person;
+    private static final long serialVersionUID = 1L;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              MDT;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              SAT;
+    private String            attention;
+    private String            bloodPB;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              dateDRound;
+    private String            diagnosis;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              dummy;
+    private String            examination;
+    private String            explanation;
+    private String            forwardPlace;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              permissionDate;
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "PersonID")
+    Person                    person;
+    private boolean           pregnant;
+    private boolean           workPlaceDr;
+    private Long              protocolNum;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              reportBegin;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              reportDate;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              reportEnd;
+    private String            scrutiny;
+    private String            scrutinyDR;
+    private String            treatment;
+    private String            tension;
+
+    public String getTension() {
+        return tension;
+    }
+
+    public void setTension(String tension) {
+        this.tension = tension;
+    }
+    private String            workAccident;
 
     public Person getPerson() {
         return person;
@@ -25,38 +62,6 @@ public class DoctorRound extends Persistable {
     public void setPerson(Person person) {
         this.person = person;
     }
-
-    private static final long serialVersionUID = 1L;
-
-    private Long protocolNum;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dateDRound;
-    private String explanation;
-    private String bloodPB;
-    private String examination;
-    private String scrutiny;
-    private String workplaceDr;
-    private String forwardPlace;
-    private String diagnosis;
-    private String treatment;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date reportBegin;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date reportEnd;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date reportDate;
-    private boolean pregnant;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date SAT;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date MDT;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date permissionDate;
-    private String attention;
-    private String workAccident;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dummy;
-    private String scrutinyDR;
 
     public String getAttention() {
         return attention;
@@ -70,10 +75,19 @@ public class DoctorRound extends Persistable {
         return bloodPB;
     }
 
+    public boolean isWorkPlaceDr() {
+        return workPlaceDr;
+    }
+
+    public void setWorkPlaceDr(boolean workPlaceDr) {
+        this.workPlaceDr = workPlaceDr;
+    }
+
+    
+
     public void setBloodPB(String bloodPB) {
         this.bloodPB = bloodPB;
     }
-
 
     public String getDiagnosis() {
         return diagnosis;
@@ -82,7 +96,6 @@ public class DoctorRound extends Persistable {
     public void setDiagnosis(String diagnosis) {
         this.diagnosis = diagnosis;
     }
-
 
     public String getExamination() {
         return examination;
@@ -116,7 +129,6 @@ public class DoctorRound extends Persistable {
         this.scrutinyDR = scrutinyDR;
     }
 
- 
     public boolean isPregnant() {
         return pregnant;
     }
@@ -220,12 +232,7 @@ public class DoctorRound extends Persistable {
     public void setWorkAccident(String workAccident) {
         this.workAccident = workAccident;
     }
-
-    public String getWorkplaceDr() {
-        return workplaceDr;
-    }
-
-    public void setWorkplaceDr(String workplaceDr) {
-        this.workplaceDr = workplaceDr;
-    }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com
