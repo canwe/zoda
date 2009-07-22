@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /*
  * PeriodicFilter.java
@@ -11,9 +7,17 @@
 
 package org.zoda.gui;
 
+import java.text.ParseException;
 import java.util.Date;
+import java.text.DateFormat;
 import java.util.List;
-import org.zoda.dao.impl.*;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.zoda.dao.impl.PeriodicDao;
+import org.zoda.dao.impl.PersonDao;
+import org.zoda.dao.impl.PersonEmployeeDao;
 import org.zoda.model.Periodic;
 import org.zoda.model.Person;
 import org.zoda.model.PersonEmployee;
@@ -23,13 +27,39 @@ import org.zoda.model.PersonEmployee;
  * @author Furkan KAMACI
  */
 public class PeriodicFilter extends javax.swing.JFrame {
-    private static final long serialVersionUID = 1L;
 
     /** Creates new form PeriodicFilter */
     public PeriodicFilter() {
         initComponents();
+        initMyComponents();
     }
 
+    private void initMyComponents(){
+        
+        jTarihBas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dateFocusLost(evt);
+            }
+        });
+
+        jCalendarButton1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dateOnlyPopupChanged(evt);
+            }
+        });
+
+        jTarihSon.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dateFocusLost2(evt);
+            }
+        });
+
+         jCalendarButton2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dateOnlyPopupChanged2(evt);
+            }
+        });
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -42,48 +72,61 @@ public class PeriodicFilter extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        jTableTarih = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        jTarihBas = new javax.swing.JTextField();
+        jTarihSon = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jCalendarButton1 = new org.sourceforge.jcalendarbutton.JCalendarButton();
+        jCalendarButton2 = new org.sourceforge.jcalendarbutton.JCalendarButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jPFsicil = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableSicil = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableAdSoyad = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        jAAdi = new javax.swing.JTextField();
+        jASoyadi = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jTcNo = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jTableTC = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
+        jTableHerkes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("BAÞLANGIÇ:");
 
-        jLabel6.setText("BÝTÝÞ:");
+        jTableTarih.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Company", "Ad", "Soyad", "Telsic", "Periyodik Muayenesi", "Tarih"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
+            };
 
-        jTextField5.setName(""); // NOI18N
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(jTableTarih);
+
+        jLabel6.setText("BÝTÝÞ:");
 
         jButton4.setText("SORGULA");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -92,26 +135,19 @@ public class PeriodicFilter extends javax.swing.JFrame {
             }
         });
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Company", "Ad", "Soyad", "Telsic", "Periyodik Muayenesi", "Tarih"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        jCalendarButton1.setText("SEÇ");
+        jCalendarButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCalendarButton1ActionPerformed(evt);
             }
         });
-        jScrollPane4.setViewportView(jTable4);
+
+        jCalendarButton2.setText("SEÇ");
+        jCalendarButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCalendarButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,61 +156,61 @@ public class PeriodicFilter extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTarihSon, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                            .addComponent(jTarihBas, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField8, 0, 0, Short.MAX_VALUE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField10, 0, 0, Short.MAX_VALUE)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))))
-                .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCalendarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCalendarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTarihBas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCalendarButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTarihSon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jCalendarButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(42, 42, 42)
-                        .addComponent(jButton4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addComponent(jButton4)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("TARÝH ARALIÐI", jPanel1);
 
         jLabel2.setText("SÝCÝL:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jButton1.setText("SORGULA");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTableSicil.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -189,14 +225,7 @@ public class PeriodicFilter extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-
-        jButton1.setText("SORGULA");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(jTableSicil);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -208,11 +237,11 @@ public class PeriodicFilter extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPFsicil, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
+                        .addGap(69, 69, 69)
                         .addComponent(jButton1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -224,22 +253,19 @@ public class PeriodicFilter extends javax.swing.JFrame {
                         .addGap(49, 49, 49)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
+                            .addComponent(jPFsicil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
                         .addComponent(jButton1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("SÝCÝL", jPanel2);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableAdSoyad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -254,7 +280,7 @@ public class PeriodicFilter extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jTableAdSoyad);
 
         jLabel3.setText("ADI:");
 
@@ -279,10 +305,10 @@ public class PeriodicFilter extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField3)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+                        .addComponent(jASoyadi)
+                        .addComponent(jAAdi, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -297,14 +323,14 @@ public class PeriodicFilter extends javax.swing.JFrame {
                         .addGap(47, 47, 47)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jAAdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jASoyadi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(49, 49, 49)
                         .addComponent(jButton2)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("ADI SOYADI", jPanel3);
@@ -318,11 +344,8 @@ public class PeriodicFilter extends javax.swing.JFrame {
             }
         });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -337,7 +360,7 @@ public class PeriodicFilter extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(jTableTC);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -349,14 +372,14 @@ public class PeriodicFilter extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTcNo, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton3)
                         .addGap(33, 33, 33)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,19 +392,16 @@ public class PeriodicFilter extends javax.swing.JFrame {
                         .addGap(53, 53, 53)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTcNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addComponent(jButton3)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("TC NO", jPanel4);
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        jTableHerkes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -396,32 +416,17 @@ public class PeriodicFilter extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(jTable5);
-
-        jButton5.setText("Listele");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
+        jScrollPane5.setViewportView(jTableHerkes);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jButton5)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jButton5)
-                .addContainerGap(398, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("HERKESÝ LÝSTELE", jPanel5);
@@ -430,7 +435,7 @@ public class PeriodicFilter extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,141 +445,294 @@ public class PeriodicFilter extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        PeriodicDao pd = new PeriodicDao();
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+       PersonEmployeeDao pd = new PersonEmployeeDao();
 
-        Date bas = new Date();
-        Date son = new Date();
+       List<PersonEmployee> list = pd.listByProperty(PersonEmployee.class,"telsic",Long.parseLong(jPFsicil.getText()));
+       Vector tableData = new Vector();
 
-        bas.setDate(Integer.parseInt(jTextField5.getText()));
-        bas.setMonth(Integer.parseInt(jTextField7.getText())-1);
-        bas.setYear(Integer.parseInt(jTextField9.getText())-1900);
+       //Table header is defining here:
+       Vector<String> tableHeaders = new Vector<String>();
+       tableHeaders.add("Company");
+       tableHeaders.add("Ad");
+       tableHeaders.add("Soyad");
+       tableHeaders.add("Telsic");
+       tableHeaders.add("Periyodik Muayene");
+       tableHeaders.add("Tarih");
 
-        son.setDate(Integer.parseInt(jTextField6.getText()));
-        son.setMonth(Integer.parseInt(jTextField8.getText())-1);
-        son.setYear(Integer.parseInt(jTextField10.getText())-1900);
+        for (PersonEmployee pe: list) {
 
-        List<Periodic> list = pd.listByTwoDate(Periodic.class,"datePeriodic",bas,son);
+            Vector<Object> oneRow = new Vector<Object>();
+            oneRow.add(pe.getCompany().getCompanyName());
+            oneRow.add(pe.getPerson().getName());
+            oneRow.add(pe.getPerson().getSurname());
+            oneRow.add(pe.getTelsic());
 
-        for (Periodic peo: list) {
-            System.out.println(peo.getPerson().getName());
-            System.out.println(peo.getPerson().getSurname());
-            System.out.println(peo.isPM());
+             List<Periodic> lis = pe.getPerson().getPeriodic();
+             for (Periodic per: lis) {
+                  Vector<Object> Row = oneRow;
+                  Row.add(per.isPM());
+                  Row.add(per.getDatePeriodic());
+                  //Every row is adding to tableData. One person may have many Periodic srutinies
+                  tableData.add(Row);
+             }
+             
+            jTableSicil.setModel(new javax.swing.table.DefaultTableModel(tableData, tableHeaders){
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
+            };
 
-            List<PersonEmployee> li = peo.getPerson().getEmployees();
-            for (PersonEmployee pm: li) {
-                System.out.println(pm.getTelsic());
-                System.out.println(pm.getCompany().getCompanyName());
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
-
-            System.out.println(peo.getDatePeriodic());
-
-
+        });
         }
-
-
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-      PersonDao pd = new PersonDao();
 
-      List<Person> list = pd.listByNameSurname(Person.class,"name","surname",jTextField2.getText(),jTextField3.getText());
+        PersonDao pd = new PersonDao();
+        List<Person> list=null;
 
-      for(Person p:list){
+        if( jAAdi.getText().trim().equals("") == false){
+            if(jASoyadi.getText().trim().equals("") == false){
+                // Check for name and surname
+                list = pd.listByNameSurname(Person.class,"name","surname",jAAdi.getText(),jASoyadi.getText());
+            }
+            else{
+               // Check for name
+                list = pd.listByProperty(Person.class,"name", jAAdi.getText());
+            }
+        }
+        else{
+            if(jASoyadi.getText().trim().equals("") == false){
+                // Check for surname
+                list = pd.listByProperty(Person.class,"surname", jASoyadi.getText());
+            }
+            else{
+                // Name and surname fields are empty!
+                JOptionPane.showMessageDialog(rootPane, "Lütfen Ad veya Soyad Kýsmýný Doldorunuz!", "Sorgu Hatasý", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+       Vector tableData = new Vector();
+       //Table header is defining here:
+       Vector<String> tableHeaders = new Vector<String>();
+       tableHeaders.add("Company");
+       tableHeaders.add("Ad");
+       tableHeaders.add("Soyad");
+       tableHeaders.add("Telsic");
+       tableHeaders.add("Periyodik Muayene");
+       tableHeaders.add("Tarih");
+
+       for(Person p:list){
 
        List<Periodic> lis = p.getPeriodic();
 
-       System.out.println(p.getName());
-       System.out.println(p.getSurname());
-
        List<PersonEmployee> li = p.getEmployees();
        for (PersonEmployee pm: li) {
-            System.out.println(pm.getTelsic());
-            System.out.println(pm.getCompany().getCompanyName());
-        }
+            Vector<Object> oneRow = new Vector<Object>();
+            oneRow.add(pm.getCompany().getCompanyName());
+            oneRow.add(pm.getPerson().getName());
+            oneRow.add(pm.getPerson().getSurname());
+            oneRow.add(pm.getTelsic());
+
 
        for (Periodic per: lis) {
-            System.out.println(per.getDatePeriodic());
-            System.out.println(per.isPM());
+           Vector<Object> Row = oneRow;
+           Row.add(per.isPM());
+           Row.add(per.getDatePeriodic());
+           //Every row is adding to tableData. One person may have many Periodic srutinies
+           tableData.add(Row);
         }
+       }
       }
 
+           jTableAdSoyad.setModel(new javax.swing.table.DefaultTableModel(tableData, tableHeaders){
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+       
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-      PersonDao pd = new PersonDao();
+        PersonDao pd = new PersonDao();
 
-      List<Person> list = pd.listByProperty(Person.class,"TCno",Long.parseLong(jTextField4.getText()));
-      for(Person p:list){
+       List<Person> list = pd.listByProperty(Person.class,"TCno",Long.parseLong(jTcNo.getText()));
+       Vector tableData = new Vector();
 
-        System.out.println(p.getName());
-        System.out.println(p.getSurname());
+       //Table header is defining here:
+       Vector<String> tableHeaders = new Vector<String>();
+       tableHeaders.add("Company");
+       tableHeaders.add("Ad");
+       tableHeaders.add("Soyad");
+       tableHeaders.add("Telsic");
+       tableHeaders.add("Periyodik Muayene");
+       tableHeaders.add("Tarih");
+
+       for(Person p:list){
 
         List<PersonEmployee> li = p.getEmployees();
         for (PersonEmployee pm: li) {
-            System.out.println(pm.getTelsic());
-            System.out.println(pm.getCompany().getCompanyName());
+            Vector<Object> oneRow = new Vector<Object>();
+            oneRow.add(pm.getCompany().getCompanyName());
+            oneRow.add(pm.getPerson().getName());
+            oneRow.add(pm.getPerson().getSurname());
+            oneRow.add(pm.getTelsic());
 
-        List<Periodic> lis = p.getPeriodic();
-        for (Periodic per: lis) {
-            System.out.println(per.getDatePeriodic());
-            System.out.println(per.isPM());
-        }
-        }
-      }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        PeriodicDao pd = new PeriodicDao();
-
-        List<Periodic> list = pd.list(Periodic.class);
-
-        for(Periodic per:list){
-            System.out.println(per.getPerson().getName());
-            System.out.println(per.getPerson().getSurname());
-            System.out.println(per.isPM());
-
-       List<PersonEmployee> li = per.getPerson().getEmployees();
-       for (PersonEmployee pm: li) {
-            System.out.println(pm.getTelsic());
-            System.out.println(pm.getCompany().getCompanyName());
-        }
-
-
-            System.out.println(per.getDatePeriodic());
-        }
-
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-
-       PersonEmployeeDao pd = new PersonEmployeeDao();
-
-       List<PersonEmployee> list = pd.listByProperty(PersonEmployee.class,"telsic",Long.parseLong(jTextField1.getText()));
-
-        for (PersonEmployee pe: list) {
-           System.out.println(pe.getPerson().getName());
-           System.out.println(pe.getPerson().getSurname());
-
-            List<PersonEmployee> li = pe.getPerson().getEmployees();
-            for (PersonEmployee pm: li) {
-                System.out.println(pm.getTelsic());
-                System.out.println(pm.getCompany().getCompanyName());
-
-            List<Periodic> lis = pe.getPerson().getPeriodic();
+            List<Periodic> lis = p.getPeriodic();
             for (Periodic per: lis) {
-                System.out.println(per.getDatePeriodic());
+                  Vector<Object> Row = oneRow;
+                  Row.add(per.isPM());
+                  Row.add(per.getDatePeriodic());
+                  //Every row is adding to tableData. One person may have many Periodic srutinies
+                  tableData.add(Row);
             }
         }
+      }
 
+            jTableTC.setModel(new javax.swing.table.DefaultTableModel(tableData, tableHeaders){
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
+            };
 
-     }
-    }//GEN-LAST:event_jButton1ActionPerformed
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jCalendarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCalendarButton1ActionPerformed
+        // TODO add your handling code here:
+        // new JCalendarPopup().setVisible(true);
+    }//GEN-LAST:event_jCalendarButton1ActionPerformed
+
+    private void jCalendarButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCalendarButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCalendarButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+
+       Vector tableData = new Vector();
+
+       //Table header is defining here:
+       Vector<String> tableHeaders = new Vector<String>();
+       tableHeaders.add("Company");
+       tableHeaders.add("Ad");
+       tableHeaders.add("Soyad");
+       tableHeaders.add("Telsic");
+       tableHeaders.add("Periyodik Muayene");
+       tableHeaders.add("Tarih");
+
+       PeriodicDao pd = new PeriodicDao();
+       List<Periodic> list = null;
+        try {
+            list = pd.listByTwoDate(Periodic.class, "datePeriodic", dateFormat.parse(jTarihBas.getText()), dateFormat.parse(jTarihSon.getText()));
+        } catch (ParseException ex) {
+            Logger.getLogger(PeriodicFilter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+       //Aþaðýdaki kod kontrol edilecek. Mantik hatasi olabilir!!
+        for (Periodic peo: list) {
+            Vector<Object> oneRow = new Vector<Object>();
+
+            //Person'a ait PersonEmployee olur hep ama size 0 mý bak!
+            List<PersonEmployee> pemp = peo.getPerson().getEmployees();
+            int size = pemp.size();
+            PersonEmployee pe = pemp.get(size-1);
+
+            oneRow.add(pe.getCompany().getCompanyName());
+            oneRow.add(peo.getPerson().getName());
+            oneRow.add(peo.getPerson().getSurname());
+            oneRow.add(pe.getTelsic());
+            oneRow.add(peo.isPM());
+            oneRow.add(peo.getDatePeriodic());
+
+            tableData.add(oneRow);
+        }
+
+            jTableTC.setModel(new javax.swing.table.DefaultTableModel(tableData, tableHeaders){
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+    }//GEN-LAST:event_jButton4ActionPerformed
+//Yukarýdaki actiondan aþaðýdaki maine kadar ve en alttaki static tanýmlý dateFormat
+    
+    public void setDate(String dateString)
+    {
+		Date date = null;
+		try	{
+            if ((dateString != null) && (dateString.length() > 0))
+                date = dateFormat.parse(dateString);
+		} catch (Exception e)	{
+            date = null;
+		}
+        this.setDate(date);
+    }
+
+    public void setDate(Date date)
+    {
+        String dateString = "";
+        if (date != null)
+    		dateString = dateFormat.format(date);
+        jTarihBas.setText(dateString);
+        jCalendarButton1.setTargetDate(date);
+    }
+    
+    public void setDateSon(String dateString)
+    {
+		Date date = null;
+		try	{
+            if ((dateString != null) && (dateString.length() > 0))
+                date = dateFormat.parse(dateString);
+		} catch (Exception e)	{
+            date = null;
+		}
+        this.setDateSon(date);
+    }
+
+    public void setDateSon(Date date)
+    {
+        String dateString = "";
+        if (date != null)
+    		dateString = dateFormat.format(date);
+        jTarihSon.setText(dateString);
+        jCalendarButton2.setTargetDate(date);
+    }
+
+        private void dateFocusLost(java.awt.event.FocusEvent evt) {
+        String date = jTarihBas.getText();
+        setDate(date);
+    }
+
+       private void dateFocusLost2(java.awt.event.FocusEvent evt) {
+        String date = jTarihSon.getText();
+        setDateSon(date);
+    }
+
+    private void dateOnlyPopupChanged(java.beans.PropertyChangeEvent evt) {
+        if (evt.getNewValue() instanceof Date)
+            setDate((Date)evt.getNewValue());
+    }
+    
+    private void dateOnlyPopupChanged2(java.beans.PropertyChangeEvent evt) {
+        if (evt.getNewValue() instanceof Date)
+            setDateSon((Date)evt.getNewValue());
+    }
 
     /**
     * @param args the command line arguments
@@ -587,18 +745,24 @@ public class PeriodicFilter extends javax.swing.JFrame {
         });
     }
 
+public static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField jAAdi;
+    private javax.swing.JTextField jASoyadi;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private org.sourceforge.jcalendarbutton.JCalendarButton jCalendarButton1;
+    private org.sourceforge.jcalendarbutton.JCalendarButton jCalendarButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField jPFsicil;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -610,21 +774,14 @@ public class PeriodicFilter extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable jTableAdSoyad;
+    private javax.swing.JTable jTableHerkes;
+    private javax.swing.JTable jTableSicil;
+    private javax.swing.JTable jTableTC;
+    private javax.swing.JTable jTableTarih;
+    private javax.swing.JTextField jTarihBas;
+    private javax.swing.JTextField jTarihSon;
+    private javax.swing.JTextField jTcNo;
     // End of variables declaration//GEN-END:variables
 
 }

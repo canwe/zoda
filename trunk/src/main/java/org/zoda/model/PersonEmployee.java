@@ -1,6 +1,9 @@
 package org.zoda.model;
 
+//~--- JDK imports ------------------------------------------------------------
+
 import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -12,9 +15,35 @@ import javax.persistence.Temporal;
 @Table(name = "PersonEmployee")
 public class PersonEmployee extends Persistable {
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /**
+     * @return the serialVersionUID
+     */
+    private static final long serialVersionUID = 1L;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              IGMdate;
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "CompanyID")
-    Company company;
+    Company                   company;
+    private String            companySCL;
+    private String            departmentCode;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              entryDate;
+    private String            exCompany;
+    private boolean           isActive;
+    private String            job;
+    private String            jobRisk;
+ 
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "PersonID")
+    Person                    person;
+    private String            personelProtector;
+    private String            secondSCL;
+    private String            sigsic;
+    private Long              telsic;
+    private String            workState;
+    private String            works;
+
+    public PersonEmployee() {}
 
     public Company getCompany() {
         return company;
@@ -23,9 +52,6 @@ public class PersonEmployee extends Persistable {
     public void setCompany(Company company) {
         this.company = company;
     }
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "PersonID")
-    Person person;
 
     public Person getPerson() {
         return person;
@@ -34,34 +60,9 @@ public class PersonEmployee extends Persistable {
     public void setPerson(Person person) {
         this.person = person;
     }
-    /**
-     * @return the serialVersionUID
-     */
-    private static final long serialVersionUID = 1L;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
-    }
-    
-    private Long telsic;
-    private boolean isActive;
-    private String departmentCode;
-    private String secondSCL;
-    private String sigsic;
-    private String workState;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date entryDate;
-    private boolean periodicScrutiny;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date IGMdate;
-    private String works;
-    private String job;
-    private String jobRisk;
-    private String personelProtector;
-    private String exCompany;
-    private String companySCL;
-
-    public PersonEmployee() {
     }
 
     public Long getTelsic() {
@@ -158,16 +159,6 @@ public class PersonEmployee extends Persistable {
         this.entryDate = entryDate;
     }
 
-
-    public boolean isPeriodicScrutiny() {
-        return periodicScrutiny;
-    }
-
-    public void setPeriodicScrutiny(boolean periodicScrutiny) {
-        this.periodicScrutiny = periodicScrutiny;
-    }
-
-
     /**
      * @return the works
      */
@@ -252,3 +243,6 @@ public class PersonEmployee extends Persistable {
         this.companySCL = companySCL;
     }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

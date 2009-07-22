@@ -1,7 +1,10 @@
 package org.zoda.model;
 
+//~--- JDK imports ------------------------------------------------------------
+
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -10,12 +13,38 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 @Entity
+
 //@Table(name = "Person", uniqueConstraints = {@UniqueConstraint(columnNames = {"TCno"})})
 public class Person extends Persistable {
-
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private static final long serialVersionUID = 1L;
+    private Long              TCno;
+    private String            address;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              birthDate;
+    private String            birthPlace;
+    private String            conditions;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "DefaultHIID")
+    private DefaultHI         defaultHI;
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "PersonID")
-    List<PersonEmployee> employees;
+    List<DoctorRound>         doctorround;
+    private String            education;
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "PersonID")
+    List<PersonEmployee>      employees;
+    private Long              homeTel;
+    private String            name;
+    private Long            nmbrChild;
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "PersonID")
+    List<Periodic>            periodic;
+    private boolean           retirement;
+    private String            sex;
+    private String            surname;
+    private Long              tel;
+
+    public Person() {}
 
     public List<PersonEmployee> getEmployees() {
         return employees;
@@ -24,9 +53,6 @@ public class Person extends Persistable {
     public void setEmployees(List<PersonEmployee> employees) {
         this.employees = employees;
     }
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "PersonID")
-    List<Periodic> periodic;
 
     public List<Periodic> getPeriodic() {
         return periodic;
@@ -35,9 +61,6 @@ public class Person extends Persistable {
     public void setPeriodic(List<Periodic> periodic) {
         this.periodic = periodic;
     }
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "PersonID")
-    List<DoctorRound> doctorround;
 
     public List<DoctorRound> getDoctorround() {
         return doctorround;
@@ -46,9 +69,6 @@ public class Person extends Persistable {
     public void setDoctorround(List<DoctorRound> doctorround) {
         this.doctorround = doctorround;
     }
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "DefaultHIID")
-    private DefaultHI defaultHI;
 
     public DefaultHI getDefaultHI() {
         return defaultHI;
@@ -57,30 +77,9 @@ public class Person extends Persistable {
     public void setDefaultHI(DefaultHI defaultHI) {
         this.defaultHI = defaultHI;
     }
-    private static final long serialVersionUID = 1L;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
-    }
-    
-
-
-    private String name;
-    private String surname;
-    private String sex;
-    private String conditions;
-    private String nmbrChild;
-    private Long tel;
-    private Long homeTel;
-    private String birthPlace;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date birthDate;
-    private String education;
-    private String address;
-    private Long TCno;
-    private boolean retirement;
-
-    public Person() {
     }
 
     /**
@@ -142,18 +141,16 @@ public class Person extends Persistable {
     /**
      * @return the nmbrChild
      */
-    public String getNmbrChild() {
+    public Long getNmbrChild() {
         return nmbrChild;
     }
 
     /**
      * @param nmbrChild the nmbrChild to set
      */
-    public void setNmbrChild(String nmbrChild) {
+    public void setNmbrChild(Long nmbrChild) {
         this.nmbrChild = nmbrChild;
     }
-
-
 
     /**
      * @return the tel
@@ -219,8 +216,6 @@ public class Person extends Persistable {
         this.education = education;
     }
 
-
-
     /**
      * @return the address
      */
@@ -234,7 +229,6 @@ public class Person extends Persistable {
     public void setAddress(String address) {
         this.address = address;
     }
-
 
     /**
      * @return the TCno
@@ -263,6 +257,7 @@ public class Person extends Persistable {
     public void setRetirement(boolean retirement) {
         this.retirement = retirement;
     }
-
-
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

@@ -1,21 +1,70 @@
 package org.zoda.model;
 
+//~--- JDK imports ------------------------------------------------------------
+
 import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
-
-
 @Entity
 public class Periodic extends Persistable {
+    private static final long serialVersionUID = 1L;
+    private String            BMI;
+    private String            EKG;
+    private String            KBB;
+    private boolean           PM;
+    private String            alcohol;
+    private String            audiometry;
+    private double            bloodPB;
+    private String            cigarette;
+    private String            complaint;
+    private String            conclusion;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              datePeriodic;
+    private String            digestion;
+    private String            disability;
+    private String            eye;
+    private boolean           hardWork;
+    private Long              height;
+    private String            hemogram;
+    private String            illness;
+    private String            kardiyovaskuler;
+    private String            neurology;
+    private String            operations;
+    private String            orthopedy;
+    private String            other;
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "PersonID")
+    Person                    person;
+    private String            psychiatry;
+    private String            pulse;
+    private String            respiration;
+    private String            scrutinyDR;
+    private String            sedimentation;
+    private String            sgotGama;
+    private String            sisExamination;
+    private String            skin;
+    private String            spirometry;
+    private String            tension;
+    private String            treatment;
+    private String            urine;
+    private String            urogenital;
+    private String            workAccident;
 
-    @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinColumn(name="PersonID")
-    Person person;
-    
+    public String getWorkAccident() {
+        return workAccident;
+    }
+
+    public void setWorkAccident(String workAccident) {
+        this.workAccident = workAccident;
+    }
+    private Long              weight;
+    private String            xray;
+
     public Person getPerson() {
         return person;
     }
@@ -23,50 +72,6 @@ public class Periodic extends Persistable {
     public void setPerson(Person person) {
         this.person = person;
     }
-
-    private static final long serialVersionUID = 1L;
-
-
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date datePeriodic;
-    private Long height;
-    private Long weight;
-    private String BMI;
-    private String tension;
-    private String pulse;
-    private String alcohol;
-    private String cigarette;
-    private String complaint;
-    private String illness;
-    private String operations;
-    private String disability;
-    private String treatment;
-    private String sisExamination;
-    private String eye;
-    private String KBB;
-    private String skin;
-    private String kardiyovaskuler;
-    private String respiration;
-    private String digestion;
-    private String urogenital;
-    private String orthopedy;
-    private String neurology;
-    private String psychiatry;
-    private String other;
-    private String xray;
-    private String EKG;
-    private String spirometry;
-    private String hemogram;
-    private double bloodPB;
-    private String urine;
-    private String sgotGama;
-    private String sedimentation;
-    private String audiometry;
-    private String conclusion;
-    private boolean hardWork;
-    private boolean PM;
-    private String scrutinyDR;
-
 
     public String getBMI() {
         return BMI;
@@ -372,3 +377,6 @@ public class Periodic extends Persistable {
         this.xray = xray;
     }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

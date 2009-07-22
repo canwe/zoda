@@ -41,7 +41,7 @@ public abstract class AbstractDao implements GenericDao {
 
     public <T extends Persistable> T persist(T obj) {
 
-        log.debug("---------end of persist method---------");
+        log.debug("---------begin of persist method---------");
 
         EntityTransaction tx = null;
         try {

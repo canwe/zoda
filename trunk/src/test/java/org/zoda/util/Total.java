@@ -42,12 +42,13 @@ public class Total extends TestCase {
         com.setCompanySicil("ANLS-01");
         com.setCompanyTel("09922121222");
         
-        p.setName("Vera");
-        p.setSurname("Egorova");
-        p.setAddress("Stalingrad");
-        p.setEducation("Master");
-        p.setTCno(9234578L);
+        p.setName("Furkan");
+        p.setSurname("Kamaci");
+        p.setAddress("Ankara");
+        p.setEducation("Lisans");
+        p.setTCno(123L);
         p.setRetirement(false);
+        p.setSex("Bay");
 
         Date a = new Date();
         a.setDate(21);
@@ -56,14 +57,14 @@ public class Total extends TestCase {
 
         per.setAlcohol("Haftada 2 gün");
         per.setCigarette("Kullanmýyor");
-        per.setScrutinyDR("Anton Pomelnikov");
+        per.setScrutinyDR("Prof. Dr. Ferhat O?uz");
         per.setDatePeriodic(a);
 
         dhi.setMedicineAllergy("Yok");
         dhi.setWorkAccident("Bulunmuyor");
 
         dr.setAttention("Kondisyonu Saðlam");
-        dr.setScrutinyDR("Prof. Dr. Nicola Mansson");
+        dr.setScrutinyDR("Prof. Dr. Ferhat O?uz");
 
         List<Periodic> perList = new ArrayList<Periodic>();
         perList.add(per);
@@ -75,8 +76,11 @@ public class Total extends TestCase {
         p.setDefaultHI(dhi);
         p.setPeriodic(perList);
         p.setDoctorround(drList);
+        p.setRetirement(true);
+
+
         pe.setIsActive(true);
-        pe.setJob("maden");
+        pe.setJob("bilgisayar");
         pe.setSigsic("22");
         pe.setTelsic(1221L);
         pe.setCompany(com);

@@ -1,24 +1,39 @@
 package org.zoda.model;
 
+//~--- JDK imports ------------------------------------------------------------
+
 import java.util.Date;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 @Entity
 public class DefaultHI extends Persistable {
-
     private static final long serialVersionUID = 1L;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date              TERMD;
+    private String            alcohol;
+    private String            attention;
+    private String            bloodGRP;
+    private Long              bloodGive;
+    private String            healthHistory;
+    private String            hepatitis;
+    private String            hepatitisA;
+    private String            hepatitisBvaccin;
+    private String            medicineAllergy;
+    private String            originHistory;
+    private String            otherVaccins;
+    @OneToOne(mappedBy = "defaultHI")
+    public Person             person;
+    private String            smoke;
+    private String            tetanusVaccin;
+    private String            workAccident;
+    private String            workIllness;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
-
-    @OneToOne(mappedBy = "defaultHI")
-    public Person person;
 
     public Person getOwner() {
         return person;
@@ -27,23 +42,6 @@ public class DefaultHI extends Persistable {
     public void setOwner(Person person) {
         this.person = person;
     }
-    private String bloodGRP;
-    private String workAccident;
-    private String attention;
-    private String medicineAllergy;
-    private String healthHistory;
-    private String originHistory;
-    private String smoke;
-    private String alcohol;
-    private String tetanusVaccin;
-    private String hepatitisBvaccin;
-    private String hepatitisA;
-    private String hepatitis;
-    private Long bloodGive;
-    private String workIllness;
-    private String otherVaccins;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date TERMD;
 
     /**
      * @return the bloodGRP
@@ -262,5 +260,7 @@ public class DefaultHI extends Persistable {
     public void setTERMD(Date TERMD) {
         this.TERMD = TERMD;
     }
-
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

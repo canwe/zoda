@@ -1,12 +1,10 @@
 package org.zoda.util;
 
 import junit.framework.TestCase;
-import org.zoda.dao.impl.PersonDao;
-import org.zoda.dao.impl.HealthInformationDao;
-import org.zoda.model.HealthInformation;
-import org.zoda.model.Person;
 
 import java.util.List;
+import org.zoda.dao.impl.PersonDao;
+import org.zoda.model.Person;
 
 /**
  * User: Melih Birim -- melih.birim@alcatel-lucent.com
@@ -17,28 +15,28 @@ import java.util.List;
 public class BasicDaoTest extends TestCase {
 
     public void testBasicDao(){
-        HealthInformationDao hiDao = new HealthInformationDao();
+
         PersonDao pd = new PersonDao();
-
-        HealthInformation hi = new HealthInformation();
-        Person p = new Person();
-        p.setName("test");
-        p.setSurname("sd");
-        hi.setPerson(p);
-
-        hiDao.persist(hi);
 
         List<Person> list = pd.list(Person.class);
         for (Person person : list) {
-            System.out.println("person.getName() = " + person.getName());
+            System.out.println("FIRST = " + person.getName());
         }
 
-        List<HealthInformation> hiList = hiDao.list(HealthInformation.class);
+        String query = PersonDao.SELECT_ALL_QUERY.replaceFirst(":CLASS:",Person.class.getSimpleName());
 
-        for (HealthInformation healthInformation : hiList) {
-            System.out.println("Health Information = " + healthInformation);
-            System.out.println("Person Name = " + healthInformation.getPerson().getName());
+        List<Person> lis = (List<Person>)PersonDao.emf.createEntityManager().createQuery(query).getResultList();
+
+        for (Person person : lis) {
+            System.out.println("SECOND = " + person.getName());
         }
+
+
+        List<Person> l= pd.listByProperty(Person.class,"name","A");
+        for (Person person : l) {
+            System.out.println("FORTH = " + person.getSurname());
+        }
+
 
     }
 
