@@ -3,6 +3,7 @@
   <persistence-unit name="zoda">
     <properties>
       <property name="hibernate.ejb.cfgfile" value="/hibernate.cfg.xml"/>
-    </properties>    
+      <property name="" value="adminadmin"/>
+    </properties>
   </persistence-unit>
 </persistence>
