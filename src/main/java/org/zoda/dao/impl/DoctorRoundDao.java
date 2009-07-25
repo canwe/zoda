@@ -14,8 +14,6 @@ import org.zoda.model.DoctorRound;
  */
 public class DoctorRoundDao extends AbstractDao {
 
-    PersonDao pd = new PersonDao();
-
     public <T extends DoctorRound> T persist(T dr){
         return super.persist(dr);
     }
