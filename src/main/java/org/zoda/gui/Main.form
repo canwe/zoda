@@ -783,6 +783,9 @@
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="jvisyerihekim">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="cc" red="cc" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Is Yeri Hekimligi"/>
                   </Properties>
                   <Events>
@@ -856,6 +859,9 @@
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="jvhamile">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="cc" red="cc" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Hamile"/>
                   </Properties>
                 </Component>
@@ -1521,11 +1527,17 @@
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="jPAgirTehlike">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="cc" green="cc" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Agir ve Tehlikeli Isler"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="jPPM">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="cc" green="cc" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Periyodik Muayene"/>
                   </Properties>
                   <Events>
@@ -2235,6 +2247,9 @@
         </Container>
         <Component class="javax.swing.JCheckBox" name="jkemeklilik">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="cc" red="cc" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Emeklilik"/>
           </Properties>
         </Component>
@@ -2302,6 +2317,9 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="jBTelsic">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="ff" red="33" type="rgb"/>
+            </Property>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup2"/>
             </Property>
@@ -2311,6 +2329,9 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="jBTCno">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="ff" red="33" type="rgb"/>
+            </Property>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup2"/>
             </Property>
