@@ -298,7 +298,7 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 153));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Temel Sa?l?k Bilgileri"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Temel Saðlýk Bilgileri"));
 
         jLabel3.setText("TERMD:");
 
@@ -528,6 +528,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel39.setText("Tedavi:");
 
+        jvisyerihekim.setBackground(new java.awt.Color(204, 204, 255));
         jvisyerihekim.setText("Is Yeri Hekimligi");
         jvisyerihekim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -553,6 +554,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel48.setText("Dummy:");
 
+        jvhamile.setBackground(new java.awt.Color(204, 204, 255));
         jvhamile.setText("Hamile");
 
         jLabel51.setText("Muayene:");
@@ -841,8 +843,10 @@ public class Main extends javax.swing.JFrame {
 
         jLabel93.setText("Sonuc:");
 
+        jPAgirTehlike.setBackground(new java.awt.Color(255, 204, 204));
         jPAgirTehlike.setText("Agir ve Tehlikeli Isler");
 
+        jPPM.setBackground(new java.awt.Color(255, 204, 204));
         jPPM.setText("Periyodik Muayene");
         jPPM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1202,7 +1206,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel113.setText("Company Sicil:");
 
-        jLabel114.setText("?se Giris Tarihi");
+        jLabel114.setText("Ýse Giris Tarihi");
 
         jLabel115.setText("Gorevi:");
 
@@ -1212,7 +1216,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel118.setText("Second Sicil:");
 
-        jLabel119.setText("Onceki ?syeri:");
+        jLabel119.setText("Onceki Ýsyeri:");
 
         jLabel120.setText("Is Durumu:");
 
@@ -1417,7 +1421,7 @@ public class Main extends javax.swing.JFrame {
         jTabbedPane1.addTab("Meslek Bilgileri", jPanel11);
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 0));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Ki?isel Bilgiler"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Kiþisel Bilgiler"));
 
         jLabel6.setText("Ad:");
 
@@ -1451,6 +1455,7 @@ public class Main extends javax.swing.JFrame {
         jkadres.setRows(5);
         jScrollPane1.setViewportView(jkadres);
 
+        jkemeklilik.setBackground(new java.awt.Color(204, 204, 0));
         jkemeklilik.setText("Emeklilik");
 
         jKDuzelt.setText("Duzelt");
@@ -1570,10 +1575,12 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jBTelsic.setBackground(new java.awt.Color(51, 255, 51));
         buttonGroup2.add(jBTelsic);
         jBTelsic.setSelected(true);
         jBTelsic.setText("TELSIC");
 
+        jBTCno.setBackground(new java.awt.Color(51, 255, 51));
         buttonGroup2.add(jBTCno);
         jBTCno.setText("TC NO");
 
