@@ -8,7 +8,7 @@ import org.zoda.dao.impl.PersonDao;
 import java.util.List;
 
 /**
- * User: Melih Birim -- melih.birim@alcatel-lucent.com
+ * User: Melih Birim 
  * Date: Jun 13, 2009
  * Time: 1:53:30 AM
  * To change this template use File | Settings | File Templates.
