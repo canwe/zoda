@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * User: Melih Birim -- melih.birim@alcatel-lucent.com
+ * User: Melih Birim 
  * Date: Jun 13, 2009
  * Time: 2:05:36 AM
  * To change this template use File | Settings | File Templates.
