@@ -5,7 +5,7 @@ import org.zoda.model.Persistable;
 import java.util.List;
 
 /**
- * User: Melih Birim -- melih.birim@alcatel-lucent.com
+ * User: Melih Birim 
  * Date: Jun 13, 2009
  * Time: 10:28:10 AM
  * To change this template use File | Settings | File Templates.
