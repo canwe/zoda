@@ -8,7 +8,7 @@ import org.zoda.dao.impl.PeriodicDao;
 import org.zoda.model.*;
 
 /**
- * User: Melih Birim -- melih.birim@alcatel-lucent.com
+ * User: Melih Birim 
  * Date: Jun 19, 2009
  * Time: 5:14:04 PM
  * To change this template use File | Settings | File Templates.
